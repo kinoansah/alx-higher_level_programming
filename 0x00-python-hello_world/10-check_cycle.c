@@ -1,51 +1,33 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
+#include "lists.h"
 
-typedef struct listint_s
+/**
+ * check_cycle - Entry Point to the program
+ * Description: Checks to see if a singly-linked list contains a cycle.
+ * @list: Type of list
+ * Return: If there is no cycle - 0.
+ *         If there is a cycle - 1
+ */
+int check_cycle(listint_t *head)
 {
-	int data;
-	struct listint_s *next;
-}
-listint_t: int check_cycle(listint_t *list)
-{
-	listint_t *slow = list;
-	listint_t *fast = list;
+	int *p1, *p2;
 
-	while (fast && fast->next)
+	if (head == NULL)
+		return (0);
+
+	while (head != NULL)
 	{
-		slow = slow->next;
-		fast = fast->nextnext;
+		p1 = (int *)&head;
+		p2 = (int *)&head->next;
+		if (head->next == NULL)
+			return (0);
 
-		if (slow == fast)
-		{
-			return 1;	/* Cycle found */
-		}
+		if (*p1 - *p2 <= 0)
+			return (1);
+
+		head = head->next;
 	}
-	return 0;	/* No cycle found */
-}
-
-int main(void)
-{
-	/* Example usage */
-	listint_t *list = malloc(sizeof(listint_t));
-	list->data = 1;
-	list->next = malloc(sizeof(listint_t));
-	list->next->data = 2;
-	list->next->next = malloc(sizeof(listint_t));
-	list->next->next->data = 3;
-	list->next->next->next = NULL;
-
-	/* Creating a cycle */
-	list-next->next->next = list->next;
-
-	int hasCycle = check_cycle(list);
-	printf("Has cycle: %d\n", hasCycle);
-
-	/* Freeing memory */
-	list->next->next->next = NULL;
-	free(list->next->next);
-	free(list->next);
-	free(list);
-
 	return (0);
 }
