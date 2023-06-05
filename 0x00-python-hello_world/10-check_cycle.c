@@ -12,19 +12,19 @@
  */
 int check_cycle(listint_t *head)
 {
-	int *p1, *p2;
+	int *a, *b;
 
 	if (head == NULL)
 		return (0);
 
 	while (head != NULL)
 	{
-		p1 = (int *)&head;
-		p2 = (int *)&head->next;
+		a = (int *)&head;
+		b = (int *)&head->next;
 		if (head->next == NULL)
 			return (0);
 
-		if (*p1 - *p2 <= 0)
+		if (*a - *b <= 0)
 			return (1);
 
 		head = head->next;
