@@ -1,12 +1,16 @@
 #!/usr/bin/python3
-import sys
 
-num_args = len(sys.argv) - 1
-plural_suffix = "s" if num_args != 1 else ""
-arg_str = "argument" + plural_suffix if num_args != 0 else "no arguments"
+if __name__ == "__main__":
+    """Print the number of and list of arguments."""
+    import sys
 
-print(f"Number of argument{plural_suffix}: {num_args}")
-print(f"{arg_str}: {'.' if num_args == 0 else ':'}")
+    args = len(sys.argv) - 1
 
-for i, arg in enumerate(sys.argv[1:], start=1):
-    print(f"{i}: {arg}")
+    if args == 0:
+        print("0 arguments.")
+    elif args == 1:
+        print("1 argument:")
+    else:
+        print("{} arguments:".format(args))
+    for i in range(args):
+        print("{}: {}".format(i + 1, sys.argv[i + 1]))
