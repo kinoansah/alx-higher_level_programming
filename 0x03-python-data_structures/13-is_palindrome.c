@@ -1,164 +1,114 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "lists.h"
 
 /**
- * struct ListNode - singly linked list
- * @val: integer value
- * @next: points to the next node
+ * reverse - reverses the second half of the list
  *
- * Description: singly linked list node structure
+ * @h_r: head of the second half
+ * Return: no return
  */
-typedef struct ListNode
+void reverse(listint_t **h_r)
 {
-    int val;
-    struct ListNode *next;
-} ListNode;
+	listint_t *prv;
+	listint_t *crr;
+	listint_t *nxt;
 
-/**
- * reverseList - Reverses a linked list
- * @head: Pointer to the head of the linked list
- * Return: Pointer to the reversed list
- */
-ListNode *reverseList(ListNode *head)
-{
-    ListNode *prev = NULL;
-    ListNode *current = head;
-    ListNode *next = NULL;
+	prv = NULL;
+	crr = *h_r;
 
-    while (current != NULL)
-    {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
+	while (crr != NULL)
+	{
+		nxt = crr->next;
+		crr->next = prv;
+		prv = crr;
+		crr = nxt;
+	}
 
-    return prev;
+	*h_r = prv;
 }
 
 /**
- * is_palindrome - Checks if a singly linked list is a palindrome
- * @head: Pointer to the head of the linked list
- * Return: 0 if not a palindrome, 1 if a palindrome
+ * compare - compares each int of the list
+ *
+ * @h1: head of the first half
+ * @h2: head of the second half
+ * Return: 1 if are equals, 0 if not
  */
-int is_palindrome(ListNode *head)
+int compare(listint_t *h1, listint_t *h2)
 {
-    if (head == NULL || head->next == NULL)
-        return 1;
+	listint_t *tmp1;
+	listint_t *tmp2;
 
-    ListNode *slow = head;
-    ListNode *fast = head;
-    ListNode *prev = NULL;
-    ListNode *second_half = NULL;
+	tmp1 = h1;
+	tmp2 = h2;
 
-    // Find the middle of the list and reverse the second half
-    while (fast != NULL && fast->next != NULL)
-    {
-        fast = fast->next->next;
-        prev = slow;
-        slow = slow->next;
-    }
+	while (tmp1 != NULL && tmp2 != NULL)
+	{
+		if (tmp1->n == tmp2->n)
+		{
+			tmp1 = tmp1->next;
+			tmp2 = tmp2->next;
+		}
+		else
+		{
+			return (0);
+		}
+	}
 
-    if (fast != NULL)
-    {
-        second_half = slow->next;
-    }
-    else
-    {
-        second_half = slow;
-    }
+	if (tmp1 == NULL && tmp2 == NULL)
+	{
+		return (1);
+	}
 
-    prev->next = NULL;
-    second_half = reverseList(second_half);
-
-    // Compare the first half and the reversed second half
-    ListNode *p1 = head;
-    ListNode *p2 = second_half;
-
-    while (p1 != NULL && p2 != NULL)
-    {
-        if (p1->val != p2->val)
-        {
-            return 0;
-        }
-        p1 = p1->next;
-        p2 = p2->next;
-    }
-
-    return 1;
+	return (0);
 }
 
 /**
- * createNode - Creates a new node with the given value
- * @val: Value of the node
- * Return: Pointer to the newly created node
+ * is_palindrome - checks if a singly linked list
+ * is a palindrome
+ * @head: pointer to head of list
+ * Return: 0 if it is not a palindrome,
+ * 1 if it is a palndrome
  */
-ListNode *createNode(int val)
+int is_palindrome(listint_t **head)
 {
-    ListNode *newNode = malloc(sizeof(ListNode));
-    if (newNode == NULL)
-    {
-        perror("malloc");
-        exit(EXIT_FAILURE);
-    }
-    newNode->val = val;
-    newNode->next = NULL;
-    return newNode;
-}
+	listint_t *slow, *fast, *prev_slow;
+	listint_t *scn_half, *middle;
+	int isp;
 
-/**
- * createLinkedList - Creates a linked list from an array of values
- * @values: Array of integer values
- * @size: Size of the array
- * Return: Pointer to the head of the linked list
- */
-ListNode *createLinkedList(int *values, int size)
-{
-    ListNode *head = NULL;
-    ListNode *current = NULL;
-    for (int i = 0; i < size; i++)
-    {
-        ListNode *newNode = createNode(values[i]);
-        if (head == NULL)
-        {
-            head = newNode;
-            current = newNode;
-        }
-        else
-        {
-            current->next = newNode;
-            current = newNode;
-        }
-    }
-    return head;
-}
+	slow = fast = prev_slow = *head;
+	middle = NULL;
+	isp = 1;
 
-/**
- * freeLinkedList - Frees the memory allocated for a linked list
- * @head: Pointer to the head of the linked list
- */
-void freeLinkedList(ListNode *head)
-{
-    while (head != NULL)
-    {
-        ListNode *temp = head;
-        head = head->next;
-        free(temp);
-    }
-}
+	if (*head != NULL && (*head)->next != NULL)
+	{
+		while (fast != NULL && fast->next != NULL)
+		{
+			fast = fast->next->next;
+			prev_slow = slow;
+			slow = slow->next;
+		}
 
-int main(void)
-{
-    int values[] = {1, 2, 3, 2, 1};
-    int size = sizeof(values) / sizeof(values[0]);
+		if (fast != NULL)
+		{
+			middle = slow;
+			slow = slow->next;
+		}
 
-    ListNode *head = createLinkedList(values, size);
+		scn_half = slow;
+		prev_slow->next = NULL;
+		reverse(&scn_half);
+		isp = compare(*head, scn_half);
 
-    int result = is_palindrome(head);
+		if (middle != NULL)
+		{
+			prev_slow->next = middle;
+			middle->next = scn_half;
+		}
+		else
+		{
+			prev_slow->next = scn_half;
+		}
+	}
 
-    printf("Is the linked list a palindrome? %s\n", result ? "Yes" : "No");
-
-    freeLinkedList(head);
-
-    return 0;
+	return (isp);
 }
