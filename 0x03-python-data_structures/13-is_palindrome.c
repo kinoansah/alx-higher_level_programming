@@ -1,9 +1,10 @@
 #include "lists.h"
 
 /**
- * reverse - reverses the second half of the list
+ * reverse - Reverses a singly linked list *
+ * @h_r: Double pointer to the head of the list
  *
- * @h_r: head of the second half
+ * Description: Reverses the order of the nodes in a singly linked list.
  * Return: no return
  */
 void reverse(listint_t **h_r)
@@ -27,11 +28,11 @@ void reverse(listint_t **h_r)
 }
 
 /**
- * compare - compares each int of the list
+ * compare - Compares the values of two singly linked lists *
+ * @h1: Pointer to the head of the first list
+ * @h2: Pointer to the head of the second list
  *
- * @h1: head of the first half
- * @h2: head of the second half
- * Return: 1 if are equals, 0 if not
+ * Return: 1 if the lists have the same values in the same order, 0 otherwise
  */
 int compare(listint_t *h1, listint_t *h2)
 {
@@ -63,11 +64,10 @@ int compare(listint_t *h1, listint_t *h2)
 }
 
 /**
- * is_palindrome - checks if a singly linked list
+ * is_palindrome - Checks if a singly linked list
  * is a palindrome
- * @head: pointer to head of list
- * Return: 0 if it is not a palindrome,
- * 1 if it is a palndrome
+ * @head: Double pointer to the head of the list
+ * Return: 1 if the list is a palindrome, 0 otherwise
  */
 int is_palindrome(listint_t **head)
 {
