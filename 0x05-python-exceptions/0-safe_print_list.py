@@ -10,11 +10,11 @@ def safe_print_list(my_list=[], x=0):
             print(my_list[i], end=" ") # Print element followed by a space
             printed_elements += 1 # Increment the counter
 
-        # Print a new line
-        print()
-
     except IndexError:
         # If an IndexError occurs, it means that all elements have been printed
         pass
+
+    finally:
+        print() # Print a new line after all elements
 
     return printed_elements
