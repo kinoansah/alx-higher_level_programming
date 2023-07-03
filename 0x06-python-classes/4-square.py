@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+# 4-square.py
+"""Access and update private attribute: """
+
+
 class Square:
     """
     This class represents a square.
