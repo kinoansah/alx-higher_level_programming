@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+
+"""Coordinates of a square: """
+
+
 class Square:
     """
     This class represents a square.
@@ -84,10 +88,9 @@ class Square:
 
     def my_print(self):
         """
-        Print the square using the character '#' based on the size and position.
+        Print the square using the character '#'
 
         If the size is 0, it prints an empty line.
-        The position is used to determine the number of spaces to print before each line when the position[1] value is greater than 0.
         """
         if self.size == 0:
             print()
@@ -96,4 +99,3 @@ class Square:
                 print()
             for _ in range(self.size):
                 print(" " * self.position[0] + "#" * self.size)
-
