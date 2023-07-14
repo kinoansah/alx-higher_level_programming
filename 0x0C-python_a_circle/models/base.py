@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module contains a class as a base for other classess"""
+"""This module contains a class to serve as base for other classes"""
 
 
 import csv
@@ -9,8 +9,7 @@ import json
 
 
 class Base:
-    """Represents base of all classes created
-    """
+    """Represents base of all classes created """
 
     __nb_objects = 0
 
@@ -27,9 +26,7 @@ class Base:
         """returns the JSON representation of list_dictionaries"""
         if list_dictionaries is None or list_dictionaries == []:
             return "[]"
-        if (type(list_dictionaries is None or list_dictionaries == []:
-            return "[]"
-        if (type(list_dictionaries) !+ list or not
+        if (type(list_dictionaries) != list or not
                 all(type(i) == dict for i in list_dictionaries)):
             raise TypeError("list_dictionaries must be a list of dictionaries")
         return json.dumps(list_dictionaries)
@@ -66,10 +63,10 @@ class Base:
         elif cls.__name__ == 'Square':
             dummy = cls(1)
 
-        dummy.update(**dictinary)
+        dummy.update(**dictionary)
         return dummy
 
-    @class method
+    @classmethod
     def load_from_file(cls):
         """Returns a list of instances"""
 
@@ -114,7 +111,7 @@ class Base:
                 if cls.__name__ == "Rectangle":
                     fieldnames = ["id", "width", "height", "x", "y"]
                 else:
-                    fieldnames + ["id", "size", "x", "y"]
+                    fieldnames = ["id", "size", "x", "y"]
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 for obj in list_objs:
                     writer.writerow(obj.to_dictionary())
@@ -138,10 +135,10 @@ class Base:
         #                 for j, y in enumerate(row):
         #                     if y:
         #                         setattr(x, records[j], int(y))
-        #                 list_of_instance.append(x)
+        #                 list_of_instances.append(x)
         # return list_of_instances
 
-         filename = cls.__name__ + ".csv"
+        filename = cls.__name__ + ".csv"
         try:
             with open(filename, "r", newline="") as csvfile:
                 if cls.__name__ == "Rectangle":
@@ -162,7 +159,6 @@ class Base:
             list_rectangles (list): A list of Rectangle objects to draw.
             list_squares (list): A list of Square objects to draw.
         """
-
         turt = turtle.Turtle()
         turt.screen.bgcolor("#b7312c")
         turt.pensize(3)
