@@ -1,16 +1,16 @@
 #!/usr/bin/python3
 from contextlib import redirect_stdout
 import contextlib
+from io import StringIO
 import inspect
 import io
 import unittest
+import json
 from models.base import Base
 from models.rectangle import Rectangle
 from models.square import Square
 import os
 import sys
-import json
-from io import StringIO
 
 
 '''
@@ -727,15 +727,6 @@ class TestSquare(unittest.TestCase):
         self.assertTrue(issubclass(Square, Base))
         self.assertFalse(isinstance(Square, Base))
 
-    # def test_10_3(self):
-    #     """Test Square class: check for missing args."""
-
-    #     with self.assertRaises(TypeError) as x:
-    #         s1 = Square()
-    #     self.assertEqual(
-    #         "__init__() missing 1 required positional argument: 'size'", str(
-    #             x.exception))
-
     def test_10_4(self):
         """Test Square for methods inherited from Rectangle."""
 
@@ -828,15 +819,6 @@ class TestSquare(unittest.TestCase):
         self.assertEqual(type(s2_dictionary), dict)
         self.assertFalse(s1 == s2)
 
-    # def test_14_1(self):
-    #     """Test for public method to_dictionary with wrong args."""
-
-    #     s = "to_dictionary() takes 1 positional argument but 2 were given"
-    #     with self.assertRaises(TypeError) as x:
-    #         s1 = Square(10, 2, 1, 9)
-    #         s1_dictionary = s1.to_dictionary("Hi")
-    #     self.assertEqual(s, str(x.exception))
-
-
+    
 if __name__ == '__main__':
     unittest.main()
