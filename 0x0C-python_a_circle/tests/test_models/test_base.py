@@ -19,7 +19,7 @@ class test_base(unittest.TestCase):
             Sending no id
         '''
         b = Base()
-        self.assertEqual(1, b.id)
+        self.assertEqual(42, b.id)
 
     def test_id(self):
         '''

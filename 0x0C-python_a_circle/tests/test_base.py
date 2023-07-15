@@ -222,11 +222,11 @@ class TestBase_save_to_file(unittest.TestCase):
 
     def test_save_to_file_no_args(self):
         with self.assertRaises(TypeError):
-        Rectangle.save_to_file()
+            Rectangle.save_to_file()
 
     def test_save_to_file_more_than_one_arg(self):
         with self.assertRaises(TypeError):
-        Square.save_to_file([], 1)
+            Square.save_to_file([], 1)
 
 
 class TestBase_from_json_string(unittest.TestCase):
@@ -298,44 +298,44 @@ class TestBase_create(unittest.TestCase):
          r2 = Rectangle.create(**r1_dictionary)
          self.assertEqual("[Rectangle] (7) 1/2 - 3/5", str(r2))
 
-     def test_create_rectangle_is(self):
+    def test_create_rectangle_is(self):
          r1 = Rectangle(3, 5, 1, 2, 7)
          r1_dictionary = r1.to_dictionary()
          r2 = Rectangle.create(**r1_dictionary)
          self.assertIsNot(r1, r2)
 
-     def test_create_rectangle_equals(self):
+    def test_create_rectangle_equals(self):
          r1 = Rectangle(3, 5, 1, 2, 7)
          r1_dictionary = r1.to_dictionary()
          r2 = Rectangle.create(**r1_dictionary)
          self.assertNotEqual(r1, r2)
 
-     def test_create_square_original(self):
+    def test_create_square_original(self):
          s1 = Square(3, 5, 1, 7)
          s1_dictionary = s1.to_dictionary()
          s2 = Square.create(**s1_dictionary)
          self.assertEqual("[Square] (7) 5/1 - 3", str(s1))
 
-     def test_create_square_new(self):
+    def test_create_square_new(self):
          s1 = Square(3, 5, 1, 7)
          s1_dictionary = s1.to_dictionary()
          s2 = Square.create(**s1_dictionary)
          self.assertEqual("[Square] (7) 5/1 - 3", str(s2))
 
-     def test_create_square_is(self):
+    def test_create_square_is(self):
          s1 = Square(3, 5, 1, 7)
          s1_dictionary = s1.to_dictionary()
          s2 = Square.create(**s1_dictionary)
          self.assertIsNot(s1, s2)
 
-     def test_create_square_equals(self):
+    def test_create_square_equals(self):
          s1 = Square(3, 5, 1, 7)
          s1_dictionary = s1.to_dictionary()
          s2 = Square.create(**s1_dictionary)
          self.assertNotEqual(s1, s2)
 
 
- class TestBase_load_from_file(unittest.TestCase):
+class TestBase_load_from_file(unittest.TestCase):
      """Unittests for testing load_from_file_method of Base class."""
 
      @classmethod
@@ -349,6 +349,7 @@ class TestBase_create(unittest.TestCase):
              os.remove("Square.json")
          except IOError:
              pass
+
      def test_load_from_file_first_rectangle(self):
          r1 = Rectangle(10, 7, 2, 8, 1)
          r2 = Rectangle(2, 4, 5, 6, 2)
@@ -356,7 +357,7 @@ class TestBase_create(unittest.TestCase):
          list_rectangles_output = Rectangle.load_from_file()
          self.assertEqual(str(r1), str(list_rectangles_output[0]))
 
-    def test_load_from_file_second_rectangle(self):
+     def test_load_from_file_second_rectangle(self):
          r1 = Rectangle(10, 7, 2, 8, 1)
          r2 = Rectangle(2, 4, 5, 6, 2)
          Rectangle.save_to_file([r1, r2])
@@ -400,7 +401,7 @@ class TestBase_create(unittest.TestCase):
              Base.load_from_file([], 1)
 
 
- class TestBase_save_to_file_csv(unittest.TestCase):
+class TestBase_save_to_file_csv(unittest.TestCase):
      """Unittests for testing save_to_file_csv method of Base class."""
 
      @classmethod
@@ -478,7 +479,7 @@ class TestBase_create(unittest.TestCase):
              Square.save_to_file_csv([], 1)
 
 
- class TestBase_load_from_file_csv(unittest.TestCase):
+class TestBase_load_from_file_csv(unittest.TestCase):
      """Unittests for testing load_from_file_csv method of Base class."""
 
      @classmethod
@@ -544,5 +545,5 @@ class TestBase_create(unittest.TestCase):
              Base.load_from_file_csv([], 1)
 
 
- if __name__ == "__main__":
+if __name__ == "__main__":
      unittest.main()
