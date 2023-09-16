@@ -4,7 +4,7 @@ This script lists all states from the
 database `hbtn_0e_0_usa`.
 """
 
-import mysql.connector
+import MySQLdb
 from sys import argv
 
 if __name__ == '__main__':
@@ -17,9 +17,9 @@ if __name__ == '__main__':
 
     db_cursor = db_connect.cursor()
 
-    db_cursor.execute("SELECT * FROM states"
+    db_cursor.execute("SELECT * FROM states")
 
-            rows_selected = db_cursor.fetchall()
+    rows_selected = db_cursor.fetchall()
 
     for row in rows_selected:
         print(row)
