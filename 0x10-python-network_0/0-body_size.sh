@@ -1,3 +1,3 @@
 #!/bin/bash
-# Check if a URL is provided as an argument
-curl -s -o "$1" | wc -c
+# send a request to an URL with curl, and displays the size of the body of the response
+curl -s "$1" | wc -c
