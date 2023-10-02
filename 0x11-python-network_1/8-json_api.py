@@ -1,34 +1,24 @@
 #!/usr/bin/python3
-# A Python script that takes in a letter and sends a POST request
-import requests
-import sys
+"""Sends a request to the URL and displays the body of the response."""
 
-if len(sys.argv) == 1:
-    q = ""
-else:
-    q = sys.argv[1]
 
-url = "http://0.0.0.0:5000/search_user"
+if __name__ == '__main__':
+    from requests import post
+    from sys import argv
 
-# Create a dictionary with the letter as a parameter
-data = {'q': q}
+    URL = 'http://0.0.0.0:5000/search_user'
+    data = {'q': argv[1] if len(argv) >= 2 else ""}
+    response = post(URL, data)
 
-try:
-    response = requests.post(url, data=data)
-    response.raise_for_status()  # Raise an exception for HTTP errors
+    type_res = response.headers['content-type']
 
-    try:
-        user_data = response.json()
-
-        if user_data:
-            user_id = user_data.get('id')
-            user_name = user_data.get('name')
-            print(f"[{user_id}] {user_name}")
+    if type_res == 'application/json':
+        result = response.json()
+        _id = result.get('id')
+        name = result.get('name')
+        if (result != {} and _id and name):
+            print("[{}] {}".format(_id, name))
         else:
-            print("No result")
-
-    except ValueError:
-        print("Not a valid JSON")
-
-except requests.exceptions.RequestException as e:
-    print(f"An error occurred: {str(e)}")
+            print('No result')
+    else:
+        print('Not a valid JSON')
